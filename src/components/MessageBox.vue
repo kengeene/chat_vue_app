@@ -5,12 +5,14 @@
             <v-row>
                 <v-col cols="11">
                     <v-text-field
-        v-model="message"
-        :rules="rules"
+                     label="Type Here"
+                     variant="outlined"
+                     v-model="message"
+                     :rules="rules"
       ></v-text-field>
                 </v-col>
                 <v-col>
-                    <v-btn type="submit" block class="mt-2">Submit</v-btn>
+                    <v-btn type="submit" block class="mt-2">Send</v-btn>
                 </v-col>
             </v-row>
     </v-form>
