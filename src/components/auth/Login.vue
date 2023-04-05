@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login-container">
     <h1>Login Page</h1>
     <form>
       <div>
@@ -17,8 +17,7 @@
 </template>
 
 <script>
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 export default {
   data() {
@@ -38,8 +37,11 @@ export default {
     },
     async loginWithGoogle() {
       try {
-        const provider = new firebase.auth.GoogleAuthProvider()
-        await firebase.auth().signInWithPopup(provider)
+        const provider = new GoogleAuthProvider()
+        const auth = getAuth();
+        const {user} = await signInWithPopup(auth, provider);
+        const { displayName, email, photoURL, uid } = user;
+        localStorage.setItem('userDetails', JSON.stringify({ displayName, email, photoURL, uid }));
         this.$router.push('/')
       } catch (error) {
         console.log(error.message)
@@ -48,3 +50,8 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.login-container{
+    color: #ffffff
+}
+</style>
