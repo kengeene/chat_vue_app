@@ -1,30 +1,26 @@
 <template>
-  <ChatDisplay/>
-  <MessageBox/>
+  <router-view/>
 </template>
-<script>
-import MessageBox from './components/MessageBox.vue'
-import ChatDisplay from './components/ChatDisplay.vue'
-export default {
-  components: {
-    MessageBox,
-    ChatDisplay,
-  },
-}
-</script>
 
+<style lang="scss">
+#app {
+  font-family: Avenir;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>
