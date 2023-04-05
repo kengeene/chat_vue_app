@@ -3,12 +3,11 @@
         <div v-if="messages.length === 0">
             No messages here
         </div>
-        <div v-else v-for="(message, index) in messages" :key="index">
+        <div v-for="(message, index) in messages" v-else :key="index">
             {{ message }}
         </div>
     </div>
 </template>
-
 <script>
     export default {
         name: 'Display',

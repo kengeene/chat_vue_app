@@ -5,9 +5,9 @@
             <v-row>
                 <v-col cols="11">
                     <v-text-field
+                     v-model="message"
                      label="Type Here"
                      variant="outlined"
-                     v-model="message"
                      :rules="rules"
       ></v-text-field>
                 </v-col>
