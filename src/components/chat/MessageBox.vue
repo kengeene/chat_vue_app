@@ -35,7 +35,6 @@ methods: {
         const messagesDb = new Database('messages');
          try{
             const data = {message: this.message, ...this.userDetails, dateAdded: new Date()};
-            delete data.photoURL;
             await messagesDb.add({data})
          } catch(e){
             console.log(e);
