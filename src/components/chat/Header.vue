@@ -1,14 +1,15 @@
 <template>
     <div>
         <v-row class="header">
-            <v-col cols="4">
-                <img :src="userDetails.photoURL" class="profile-img"/>
-            </v-col>
-            <v-col cols="4">
+            <v-col class="header__heading">
                <h2>Firebase Chat App</h2>
             </v-col>
-            <v-col cols="4">
-                <a @click="logout()">Logout</a>
+            <v-col cols="2">
+                <img :src="userDetails.photoURL" class="profile-img"/>
+                <div>
+                <span class="display-name">{{ userDetails.displayName }}</span>
+                <a @click="logout()" class="logout-btn">Logout</a>
+                </div>
             </v-col>
         </v-row>
     </div>
@@ -41,9 +42,22 @@ signOut(auth).then(() => {
 <style lang="scss" scoped>
 .header{
     align-items: center;
+
+    &__heading{
+        text-align: left;
+        color: #ffffff;
+    }
 }
 .profile-img{
     height: 50px;
     width: 50px;
+    border-radius: 50px;
+}
+.logout-btn{
+    cursor: pointer;
+}
+.display-name{
+    color: #ffffff;
+    margin-right: 10px;
 }
 </style>
