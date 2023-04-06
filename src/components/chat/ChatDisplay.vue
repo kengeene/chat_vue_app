@@ -4,13 +4,21 @@
         <div v-if="messages.length === 0">
             No messages here
         </div>
-        <v-row v-for="(message, index) in messages" v-else :key="index" class="display-area__message-container">
-        <div>
-            <span class="display-area__name">{{ message.displayName }}</span>
-            <span class="display-area__profile-avi">{{ message.photoURL }}</span>
+        <v-row v-for="(message, index) in messages" v-else :key="index" class="display-area__message-container" :class="isMe(message.uid) ?'display-area__message-container--right': ''">
+        <v-card class="display-area__message-card">
+            <v-col>
+            <v-row>
+            <v-col cols="3">
+                <img class="display-area__profile-avi" :src="message.photoURL"/>
+            </v-col>
+                <v-col><span class="display-area__name">{{ message.displayName }}</span></v-col>
+                <v-col><span class="display-area__date">{{ convertDate(message.dateAdded.seconds) }}</span></v-col>
+            </v-row>
+            <v-row>
             <span class="display-area__message">{{ message.message }}</span>
-            <span class="display-area__date">{{ message.dateAdded.seconds }}</span>
-        </div>
+            </v-row>
+            </v-col>
+        </v-card>
         </v-row>
     </div>
     </v-row>
@@ -48,12 +56,23 @@ import Database from '../../classes/db';
                 }catch(e){
                     console.log('e', e)
                 }
+            },
+            convertDate(timestamp){
+                return new Date(timestamp);
+            },
+            isMe(messageUid){
+                const {uid} = JSON.parse(localStorage.getItem('userDetails'))
+                if(uid === messageUid){
+                    return true
+                }
+                return false
             }
         },
     }
 </script>
 
 <style lang="scss" scoped>
+$small-font: 10px;
 .display-area{
     background-color: #ffffff;
     min-height: 100%;
@@ -64,18 +83,32 @@ import Database from '../../classes/db';
 
     &__date{
         display: block;
+        font-size: $small-font;
     }
 
     &__message-container{
-        border: 1px solid #000000;
         padding: 5px;
         margin: 5px;
-        width: 10%;
         border-radius: 10px;
+
+        &--right{
+            justify-content: right;
+        }
     }
 
     &__name{
         display: block;
+        font-size: $small-font;
+    }
+
+    &__message-card{
+        padding:10px;
+    }
+
+    &__profile-avi{
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
     }
 }
 </style>
