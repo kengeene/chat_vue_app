@@ -47,7 +47,7 @@ import Database from '../../classes/db';
     width: 100%;
     display: block;
     color: #000000;
-    padding: 10px 10px;
+    padding: 10px 10px 5% 0;
     margin: 10px 0 30% 0;
 
     &__date{
