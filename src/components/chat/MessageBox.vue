@@ -12,7 +12,7 @@
       ></v-text-field>
                 </v-col>
                 <v-col>
-                    <v-btn type="submit" block class="mt-2">Send</v-btn>
+                    <v-btn type="submit" block class="mt-2" @click="postMessage()">Send</v-btn>
                 </v-col>
             </v-row>
     </v-form>
@@ -21,11 +21,27 @@
 </template>
 
 <script>
-    export default {
+import Database from '../../classes/db';
+export default {
 data() {
     return {
         message: '',
-        rules: [(v)=> !!v || 'This field is required']
+        rules: [(v)=> !!v || 'This field is required'],
+        userDetails: JSON.parse(localStorage.getItem('userDetails'))
+    }
+},
+methods: {
+    postMessage() {
+        const messagesDb = new Database('messages');
+         try{
+            const data = {message: this.message, ...this.userDetails, dateAdded: new Date()};
+            delete data.photoURL;
+            console.log('data', data)
+            const message = messagesDb.add({data})
+            console.log('message', message);
+         } catch(e){
+            console.log(e);
+         }
     }
 },
     }

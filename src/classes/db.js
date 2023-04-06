@@ -1,4 +1,5 @@
 import { collection, addDoc, getDocs } from "firebase/firestore";
+import { db } from '../utils/firebase';
 
 export default class Database {
     constructor(collection){
