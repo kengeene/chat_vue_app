@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Header/>
         <ChatDisplay/>
         <MessageBox/>
     </div>
@@ -8,10 +9,13 @@
 <script>
 import ChatDisplay from './ChatDisplay.vue'
 import MessageBox from './MessageBox.vue'
+import Header from './Header.vue'
+
     export default {
         components: {
             ChatDisplay,
-            MessageBox
+            MessageBox,
+            Header
         },
     }
 </script>
