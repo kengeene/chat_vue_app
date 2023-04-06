@@ -36,6 +36,7 @@ methods: {
          try{
             const data = {message: this.message, ...this.userDetails, dateAdded: new Date()};
             await messagesDb.add({data})
+            this.message = "";
          } catch(e){
             console.log(e);
          }
