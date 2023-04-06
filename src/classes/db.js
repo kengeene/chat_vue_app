@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs, query, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, onSnapshot, orderBy } from "firebase/firestore";
 import { db } from '../utils/firebase';
 
 export default class Database {
@@ -10,7 +10,6 @@ export default class Database {
     async add({data}){
         try {
   const docRef = await addDoc(collection(db, this.collection), data);
-  console.log("Document written with ID: ", docRef.id);
   return docRef;
 } catch (e) {
   return e;
@@ -37,8 +36,7 @@ export default class Database {
     listen(){
         return new Promise((resolve, reject)=>{
             try{
-                const q = query(collection(db, this.collection));
-                console.log('listening');
+                const q = query(collection(db, this.collection), orderBy('dateAdded'));
                 const unsubscribe = onSnapshot(q, (querySnapshot) => {
                     const data = [];
                     querySnapshot.forEach((doc) => {
