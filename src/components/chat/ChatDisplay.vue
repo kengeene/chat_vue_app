@@ -20,7 +20,16 @@ import Database from '../../classes/db';
         name: 'Display',
         data() {
             return {
-                messages: []
+                messages: [],
+                database: new Database('messages')
+            }
+        },
+        watch: {
+            database: {
+                handler: function(value){
+                this.messages = value.listenData;
+                },
+                deep: true
             }
         },
         mounted() {
@@ -29,8 +38,7 @@ import Database from '../../classes/db';
         methods: {
             async getChats() {
                 try{
-                    const database = new Database('messages')
-                    const messages = await database.get()
+                    await this.database.listen()
                     this.messages = messages
                 }catch(e){
                     console.log('e', e)

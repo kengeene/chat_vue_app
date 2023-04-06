@@ -1,9 +1,10 @@
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, onSnapshot } from "firebase/firestore";
 import { db } from '../utils/firebase';
 
 export default class Database {
     constructor(collection){
         this.collection = collection;
+        this.listenData = [];
     }
 
     async add({data}){
@@ -32,4 +33,22 @@ export default class Database {
     });
 
     }
+
+    listen(){
+        return new Promise((resolve, reject)=>{
+            try{
+                const q = query(collection(db, this.collection));
+                console.log('listening');
+                const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                    const data = [];
+                    querySnapshot.forEach((doc) => {
+                        data.push(doc.data());
+                    });
+                    this.listenData = data
+            });
+        } catch(e){
+            console.log('error', e);
+        }
+    });
+}
 }
