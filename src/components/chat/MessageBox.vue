@@ -31,14 +31,12 @@ data() {
     }
 },
 methods: {
-    postMessage() {
+    async postMessage() {
         const messagesDb = new Database('messages');
          try{
             const data = {message: this.message, ...this.userDetails, dateAdded: new Date()};
             delete data.photoURL;
-            console.log('data', data)
-            const message = messagesDb.add({data})
-            console.log('message', message);
+            await messagesDb.add({data})
          } catch(e){
             console.log(e);
          }
@@ -55,5 +53,8 @@ methods: {
     z-index: 10;
     width: 100%;
     left: 0;
+    background-color: slategrey;
+    padding-top: 10px;
+    color: #ffffff;
 }
 </style>

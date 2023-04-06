@@ -1,15 +1,17 @@
 <template>
     <v-row>
-    <div class="display-area">
+    <div class="display-area" id="messages">
         <div v-if="messages.length === 0">
             No messages here
         </div>
-        <div v-for="(message, index) in messages" v-else :key="index" class="display-area__message-box">
+        <v-row v-for="(message, index) in messages" v-else :key="index" class="display-area__message-container">
+        <div>
             <span class="display-area__name">{{ message.displayName }}</span>
             <span class="display-area__profile-avi">{{ message.photoURL }}</span>
             <span class="display-area__message">{{ message.message }}</span>
             <span class="display-area__date">{{ message.dateAdded.seconds }}</span>
         </div>
+        </v-row>
     </div>
     </v-row>
 </template>
@@ -28,6 +30,9 @@ import Database from '../../classes/db';
             database: {
                 handler: function(value){
                 this.messages = value.listenData;
+                // scroll to bottom for new texts
+                // const objDiv = document.getElementById("messages");
+                // objDiv.scrollTop = objDiv.scrollHeight;
                 },
                 deep: true
             }
@@ -55,14 +60,13 @@ import Database from '../../classes/db';
     width: 100%;
     display: block;
     color: #000000;
-    padding: 10px 10px 5% 0;
-    margin: 10px 0 30% 0;
+    margin: 10px 0 7% 0;
 
     &__date{
         display: block;
     }
 
-    &__message-box{
+    &__message-container{
         border: 1px solid #000000;
         padding: 5px;
         margin: 5px;
