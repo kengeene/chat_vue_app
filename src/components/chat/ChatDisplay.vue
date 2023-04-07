@@ -1,6 +1,6 @@
 <template>
     <v-row>
-    <div class="display-area" id="messages">
+    <div class="display-area" id="messages" v-loading="loading">
         <div v-if="messages.length === 0">
             No messages here
         </div>
@@ -31,7 +31,8 @@ import Database from '../../classes/db';
         data() {
             return {
                 messages: [],
-                database: new Database('messages')
+                database: new Database('messages'),
+                loading: false
             }
         },
         watch: {
@@ -39,21 +40,28 @@ import Database from '../../classes/db';
                 handler: function(value){
                 this.messages = value.listenData;
                 // scroll to bottom for new texts
-                // const objDiv = document.getElementById("messages");
-                // objDiv.scrollTop = objDiv.scrollHeight;
+                this.scrollToBottom();
                 },
                 deep: true
             }
         },
         mounted() {
             this.getChats()
+            this.scrollToBottom();
         },
         methods: {
+            scrollToBottom(){
+                const objDiv = document.getElementById("messages");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            },
             async getChats() {
+                this.loading = true;
                 try{
                     await this.database.listen()
                     this.messages = messages
+                    this.loading = false;
                 }catch(e){
+                    this.loading = false;
                     console.log('e', e)
                 }
             },
@@ -103,6 +111,7 @@ $small-font: 10px;
 
     &__message-card{
         padding:10px;
+        border-radius: 25px;
     }
 
     &__profile-avi{
