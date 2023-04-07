@@ -2,15 +2,6 @@
   <div class="login-container">
     <h1>Login Page</h1>
     <form>
-      <div>
-        <label>Email</label>
-        <input type="email" v-model="email">
-      </div>
-      <div>
-        <label>Password</label>
-        <input type="password" v-model="password">
-      </div>
-      <button @click.prevent="login">Login</button>
       <button @click.prevent="loginWithGoogle">Login with Google</button>
     </form>
   </div>
@@ -27,14 +18,6 @@ export default {
     }
   },
   methods: {
-    async login() {
-      try {
-        await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-        this.$router.push('/')
-      } catch (error) {
-        console.log(error.message)
-      }
-    },
     async loginWithGoogle() {
       try {
         const provider = new GoogleAuthProvider()
