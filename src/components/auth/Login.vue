@@ -1,8 +1,8 @@
 <template>
   <div class="login-container">
-    <h1>Login Page</h1>
-    <form>
-      <button @click.prevent="authObj.googleLogin($router)">Login with Google</button>
+    <h1 class="login-container__heading">Chat App</h1>
+    <form class="login-container__form">
+      <v-btn @click.prevent="authObj.googleLogin($router)" class="login-container__btn">Login with Google</v-btn>
     </form>
   </div>
 </template>
@@ -20,6 +20,22 @@ export default {
 </script>
 <style lang="scss" scoped>
 .login-container{
-    color: #ffffff
+  color: #ffffff;
+  display: block;
+
+    &__btn{
+      margin: 30px;
+    }
+
+    &__heading{
+      margin: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+  .login-container{
+  height: 100%;
+  margin-top: 50%;
+  }
 }
 </style>
