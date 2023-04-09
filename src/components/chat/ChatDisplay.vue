@@ -10,8 +10,9 @@
             {{loading ?'Loading Messages':'No messages here'}}
         </div>
         <v-row v-for="(message, index) in messages" v-else :key="index" class="display-area__message-container" :class="isMe(message.uid) ?'display-area__message-container--right': ''">
+
+            <v-col lg="4" md="3" sm="12">
         <v-card class="display-area__message-card">
-            <v-col>
             <v-row>
             <v-col cols="3">
                 <img class="display-area__profile-avi" :src="message.photoURL"/>
@@ -22,8 +23,9 @@
             <v-row>
             <span class="display-area__message">{{ message.message }}</span>
             </v-row>
-            </v-col>
         </v-card>
+
+            </v-col>
         </v-row>
     </div>
     </v-row>
@@ -120,7 +122,7 @@ $small-font: 10px;
     }
 
     &__message-card{
-        padding:10px;
+        padding: 30px;
         border-radius: 25px;
     }
 
