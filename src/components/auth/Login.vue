@@ -2,34 +2,19 @@
   <div class="login-container">
     <h1>Login Page</h1>
     <form>
-      <button @click.prevent="loginWithGoogle">Login with Google</button>
+      <button @click.prevent="authObj.googleLogin($router)">Login with Google</button>
     </form>
   </div>
 </template>
 
 <script>
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import Auth from '../../classes/auth.js';
 
 export default {
   data() {
     return {
-      email: '',
-      password: '',
+      authObj: new Auth({router: this.$router})
     }
-  },
-  methods: {
-    async loginWithGoogle() {
-      try {
-        const provider = new GoogleAuthProvider()
-        const auth = getAuth();
-        const {user} = await signInWithPopup(auth, provider);
-        const { displayName, email, photoURL, uid } = user;
-        localStorage.setItem('userDetails', JSON.stringify({ displayName, email, photoURL, uid }));
-        this.$router.push('/')
-      } catch (error) {
-        console.log(error.message)
-      }
-    },
   },
 }
 </script>
