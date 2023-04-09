@@ -1,14 +1,14 @@
 <template>
     <div>
         <v-row class="header">
-            <v-col class="header__heading">
+            <v-col class="header__heading" sm="6" xs="6" cols="auto">
                <h2>Firebase Chat App</h2>
             </v-col>
-            <v-col cols="2">
-                <img :src="userDetails.photoURL" class="profile-img"/>
+            <v-col sm="6" xs="6" class="header__image-display">
+                <img :src="userDetails.photoURL" class="header__profile-img"/>
                 <div>
-                <span class="display-name">{{ userDetails.displayName }}</span>
-                <a @click="logout()" class="logout-btn">Logout</a>
+                <span class="header__display-name">{{ formattedName }}</span>
+                <a @click="logout()" class="header__logout-btn">Logout</a>
                 </div>
             </v-col>
         </v-row>
@@ -36,6 +36,12 @@ signOut(auth).then(() => {
 });
             }
         },
+        computed: {
+            formattedName() {
+                const names = this.userDetails.displayName.split(' ');
+                return `${names[0]} ${names[1].charAt(0)}.`;
+            }
+        },
     }
 </script>
 
@@ -47,17 +53,37 @@ signOut(auth).then(() => {
         text-align: left;
         color: #ffffff;
     }
-}
-.profile-img{
+
+    &__image-display{
+        text-align: right;
+    }
+
+    &__profile-img{
     height: 50px;
     width: 50px;
     border-radius: 50px;
 }
-.logout-btn{
+
+&__logout-btn{
     cursor: pointer;
 }
-.display-name{
+&__display-name{
     color: #ffffff;
     margin-right: 10px;
 }
+}
+/* Mobile Devices */
+@media (max-width: 480px) {
+    .header{
+        &__display-name{
+        display: block;
+        margin-right: 0;
+    }
+    }
+
+    h2{
+        font-size: 1.2em;
+    }
+}
+
 </style>

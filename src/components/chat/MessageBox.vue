@@ -3,15 +3,14 @@
         <v-form @submit.prevent>
 
             <v-row>
-                <v-col cols="11">
+                <v-col xs="8" sm="10" md="11">
                     <v-text-field
                      v-model="message"
                      label="Type Here"
                      variant="outlined"
-                     :rules="rules"
-      ></v-text-field>
+                     :rules="rules"/>
                 </v-col>
-                <v-col>
+                <v-col cols="auto">
                     <v-btn type="submit" block class="mt-2" @click="postMessage()">Send</v-btn>
                 </v-col>
             </v-row>
