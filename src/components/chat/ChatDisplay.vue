@@ -1,8 +1,13 @@
 <template>
     <v-row>
-    <div class="display-area" id="messages" v-loading="loading">
-        <div v-if="messages.length === 0">
-            No messages here
+    <div class="display-area" id="messages">
+        <v-progress-circular
+      indeterminate
+      color="blue-grey"
+      v-if="loading && messages.length === 0"
+    ></v-progress-circular>
+        <div v-if="messages.length === 0" class="display-area__loading-text">
+            {{loading ?'Loading Messages':'No messages here'}}
         </div>
         <v-row v-for="(message, index) in messages" v-else :key="index" class="display-area__message-container" :class="isMe(message.uid) ?'display-area__message-container--right': ''">
         <v-card class="display-area__message-card">
@@ -56,13 +61,19 @@ import Database from '../../classes/db';
             },
             async getChats() {
                 this.loading = true;
+                console.log('this.loading', this.loading);
                 try{
                     await this.database.listen()
                     this.messages = messages
                     this.loading = false;
+                console.log('finished loading', this.loading);
                 }catch(e){
                     this.loading = false;
+                    console.log('failed');
                     console.log('e', e)
+                } finally{
+                    this.loading = false;
+                    console.log('this.loading', this.loading);
                 }
             },
             convertDate(timestamp){
@@ -82,7 +93,6 @@ import Database from '../../classes/db';
 <style lang="scss" scoped>
 $small-font: 10px;
 .display-area{
-    background-color: #ffffff;
     min-height: 100%;
     width: 100%;
     display: block;
@@ -119,5 +129,14 @@ $small-font: 10px;
         height: 50px;
         border-radius: 50px;
     }
+
+    &__loading-text{
+        color: #ffffff;
+    }
+}
+@media (max-width: 480px) {
+.display-area{
+    margin: 10px 0 30% 0;
+}
 }
 </style>
