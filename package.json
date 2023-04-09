@@ -1,5 +1,6 @@
 {
   "name": "vue-chat-app",
+  "author": "Eugene Kuria",
   "version": "0.0.0",
   "private": true,
   "scripts": {
